@@ -1,4 +1,9 @@
-import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
+import {
+  type ClientSchema,
+  a,
+  defineData,
+  defineFunction,
+} from '@aws-amplify/backend';
 
 /*== STEP 1 ===============================================================
 The section below creates a Todo database table with a "content" field. Try
@@ -19,12 +24,18 @@ export type Schema = ClientSchema<typeof schema>;
 export const data = defineData({
   schema,
   authorizationModes: {
-    defaultAuthorizationMode: "apiKey",
+    defaultAuthorizationMode: 'apiKey',
     // API Key is used for a.allow.public() rules
     apiKeyAuthorizationMode: {
       expiresInDays: 30,
     },
   },
+});
+
+export const helloWorld = defineFunction({
+  runtime: 20,
+  name: 'hello-world',
+  entry: './handler.ts',
 });
 
 /*== STEP 2 ===============================================================
